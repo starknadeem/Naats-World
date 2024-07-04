@@ -1,0 +1,37 @@
+if (!categoryname || !artistname || !artistimage || !audioTitles) {
+       
+        return res.status(500).json({message: "Required all fileds"});
+      }
+
+    const mappedAudioFiles = audioFiles.map((file, index) => ({
+      audioFile: file.path,
+      audioTitle: audioTitles[index],
+  }));
+
+  try {
+    if (audioFiles.length === 1) {
+        // If only one audio file and title, handle it separately
+       const categoryData = await categoryModel.create({
+            categoryName: categoryname,
+            artistname,
+            artistimage,
+            audioFiles: [{
+                audioFile: audioFiles[0].path,
+                audioTitle: audioTitles, 
+            }]
+        });
+    } else {
+        // For multiple audio files and titles, use the mapped array
+        const categoryData = await categoryModel.create({
+            categoryName: categoryname,
+            artistname,
+            artistimage,
+            audioFiles: mappedAudioFiles,
+        });
+    }
+
+    res.status(200).json({ message: 'Data saved successfully' });
+} catch (error) {
+    console.error('Error saving data:', error);
+    res.status(500).json({ error: 'Error saving data' });
+}
