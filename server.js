@@ -40,8 +40,8 @@ function startServer() {  //MAIN SERVER
 
   app.use("/api/", Routermanager);
 
-
-  app.listen(process.env.PORT, () => {
-    console.log(`SERVER IS STARTING AT http://127.0.0.1:${process.env.PORT}`);
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`SERVER IS STARTING AT ${PORT}`);
   });
 }

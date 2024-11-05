@@ -25,8 +25,7 @@ const audioSchema = mongoose.Schema({
             unique: true,
             required: [true, 'Audio title is required'],
         }
-    }]
-
+    }],
 });
 
 const Audio = mongoose.model('Audio', audioSchema);

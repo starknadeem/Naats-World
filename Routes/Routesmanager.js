@@ -14,6 +14,8 @@ const handleaudiotwo = require('../controllers/handleaudiotwo');
 const handleAllAudio = require('../controllers/handleAllAudio');
 const registerUser = require('../controllers/Registeruser');
 const SearchResult = require('../controllers/SearchResult');
+const handleLike = require('../controllers/handleLike');
+const loginUser = require('../controllers/LoginUser');
 
 router.post("/upload", upload.fields([
     {  name: 'artistImage' },
@@ -30,6 +32,10 @@ router.post("/upload/audio", upload.fields([
 ]), handleuploadaudio);
 
 router.post("/registeruser",registerUser);
+router.post("/login", loginUser);
+
+router.get("/like/:title/:reaction", handleLike);
+router.post("/like/removeLike", handleLike);
 
 router.get("/getcategory", handlecategory);
 router.get("/getartist/:categoryname", handleArtist);
